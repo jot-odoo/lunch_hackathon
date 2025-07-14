@@ -13,6 +13,7 @@
     'data': [
         "security/ir.model.access.csv",
         'data/lunch_data.xml',
+        # 'data/food_items.xml',
         'views/lunch_templates.xml',
         "views/product_views.xml",
         "views/menu_views.xml",
@@ -20,7 +21,6 @@
     ],
     'assets': {
         'hr_attendance.assets_public_attendance': [
-            # Public Kiosk app and its components
             "lunch_buffalo/static/src/public_kiosk/**/*",
         ]
     },

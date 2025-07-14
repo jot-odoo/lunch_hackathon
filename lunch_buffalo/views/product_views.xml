@@ -2,25 +2,33 @@
   <record id="product_product_form_view_inherit_food" model="ir.ui.view">
     <field name="name">product.product.form.inherit.food</field>
     <field name="model">product.product</field>
-    <field name="inherit_id" ref="product.product_normal_form_view" />
-    <!-- <field name="arch" type="xml">
-      <xpath expr="//sheet/notebook/page[@string='General Information']/group" position="after">
-        <group string="Food Info">
-          <field name="description" widget="text" />
-          <field name="allergen_ids" widget="many2many_tags" />
-          <field name="alternative_ids" widget="many2many_tags" />
-        </group>
+    <field name="inherit_id" ref="product.product_normal_form_view"/>
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='categ_id']" position="replace">
+        <field colspan="2" name="description" nolabel="1" placeholder="Food Description" on_change="1"/>
+        <field name="allergen_ids" widget="many2many_tags"/>
+        <field name="alternative_ids" widget="many2many_tags"/>
       </xpath>
-    </field> -->
-  </record> 
+      <xpath expr="//div[@name='options']" position="replace">
+        <div name="options" class="d-inline-flex">
+          <field name="is_food_item" on_change="1"/>
+          <label for="is_food_item"/>
+        </div>
+      </xpath>
+    </field>
+  </record>
 
+  
   <record id="action_food_items" model="ir.actions.act_window">
     <field name="name">Food Items</field>
     <field name="res_model">product.product</field>
     <field name="view_mode">list,form</field>
+    <field name="domain">[('is_food_item', '=', True)]</field>
+    <field name="context">{'default_is_food_item': True}</field>
   </record>
 
-  <menuitem id="menu_lunch_root" name="Lunch" sequence="10" />
-  <menuitem id="menu_food_item_root" name="Food Items" parent="menu_lunch_root"
-    action="action_food_items" sequence="1" />
+  <menuitem id="menu_lunch_root" name="Lunch" sequence="10"/>
+  <menuitem id="menu_food_item_root" name="Food Items"
+            parent="menu_lunch_root"
+            action="action_food_items" sequence="1"/>
 </odoo>

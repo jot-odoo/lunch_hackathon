@@ -1,6 +1,6 @@
 <odoo>
     <!-- Menu Form View -->
-    <record id="view_food_menu_form" model="ir.ui.view">
+    <!-- <record id="view_food_menu_form" model="ir.ui.view">
         <field name="name">menu.form</field>
         <field name="model">menu</field>
         <field name="arch" type="xml">
@@ -8,33 +8,30 @@
                 <sheet>
                     <group>
                         <field name="name"/>
-                        <!-- <field name="date_start" 
-                               help="Select the first day of the menu week, typically Monday."/> -->
-                        <!-- <field name="date_end" 
-                               help="Select the last day of the menu week, typically Friday."/> -->
                         <field name="food_ids" widget="many2many_tags" 
                                help="Select food items included in this menu."/>
+                        <field name="date" widget="date"/>
+                        <field name="is_published"/>
                     </group>
                 </sheet>
             </form>
         </field>
-    </record>
+    </record> -->
 
     <!-- Menu list (List) View -->
-    <record id="view_food_menu_list" model="ir.ui.view">
+    <!-- <record id="view_food_menu_list" model="ir.ui.view">
         <field name="name">menu.list</field>
         <field name="model">menu</field>
         <field name="arch" type="xml">
             <list string="Menus">
                 <field name="name"/>
-                <!-- <field name="date_start"/> -->
-                <!-- <field name="date_end"/> -->
+                <field name="date"/>
             </list>
         </field>
-    </record>
+    </record> -->
 
     <!-- Menu Action -->
-    <record id="action_food_menu" model="ir.actions.act_window">
+    <!-- <record id="action_food_menu" model="ir.actions.act_window">
         <field name="name">Menus</field>
         <field name="res_model">menu</field>
         <field name="view_mode">list,form</field>
@@ -43,9 +40,34 @@
                 Create weekly menus here by selecting dates and food items.
             </p>
         </field>
-    </record>
-
+    </record> -->
+    <record id="view_event_form_inherit_food_menu" model="ir.ui.view">
+        <field name="name">event.event.form.inherit.food.menu</field>
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <!-- Add your fields here -->
+                <field name="food_ids" widget="many2many_tags" 
+                       help="Select food items included in this menu."/>
+                <field name="is_food_item"/>
+                <!-- <field name="date" widget="date"/> -->
+                <!-- <field name="is_published"/> -->
+            </xpath>
+            <!-- <form string="Menu">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="food_ids" widget="many2many_tags" 
+                               help="Select food items included in this menu."/>
+                        <field name="date" widget="date"/>
+                        <field name="is_published"/>
+                    </group>
+                </sheet>
+            </form> -->
+        </field>
+        </record>
     <!-- Menu Item -->
     <menuitem id="menu_lunch_root" name="Lunch" sequence="10"/>
-    <menuitem id="menu_food_menu_root" name="Menus" parent="menu_lunch_root" action="action_food_menu" sequence="1"/>
+    <!-- <menuitem id="menu_food_menu_root" name="Menus" parent="menu_lunch_root" action="action_food_menu" sequence="1"/> -->
 </odoo>

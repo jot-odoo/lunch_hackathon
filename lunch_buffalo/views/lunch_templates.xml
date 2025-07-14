@@ -1,105 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="index" name="Lunch">
-        <t t-call="website.layout">
-            <div id="wrap" class="o_wevent_index">
-                <div class="container mt-3 mb-4">
-                    <div class="o_wevent_index_topbar_filters d-flex d-print-none align-items-center justify-content-end flex-wrap gap-2 w-100">
-                        <h2 class="h4 my-0 me-auto pe-sm-4">Lunch</h2>
-                        <a href="#" role="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">
-                            <span class="badge bg-primary ms-1" t-out="filter"/>
-                        </a>
-                        <div class="dropdown-menu">
-                            <a href="/lunch?date=today" class="dropdown-item d-flex align-items-center justify-content-between ">
-                                Today's Menu
-                            </a>
-                            <a href="/lunch?date=upcoming" class="dropdown-item d-flex align-items-center justify-content-between ">
-                                Upcoming Menus
-                            </a>
-                            <a href="/lunch?date=upcoming" class="dropdown-item d-flex align-items-center justify-content-between ">
-                                Past Menus
-                            </a>
-                            <a href="/lunch?date=open" class="dropdown-item d-flex align-items-center justify-content-between ">
-                                Open for Registrations
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="o_wevent_events_list"/>
-                <div class="container">
-                    <div class="row">
-                        <div id="o_wevent_index_main_col" t-attf-class="col-md mb-3 #{opt_events_list_columns and 'opt_events_list_columns' or 'opt_events_list_rows'}">
-                            <div class="row g-4 g-lg-3 g-xxl-4">
-                                <!-- Events List -->
-                                <t t-call="lunch_buffalo.lunch_list"/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </t>
+    <template id="lunch_buffalo.index" inherit_id="website_event.index" primary="True">
     </template>
-    <template id="lunch_list" name="Lunch list">
-        <div t-foreach="menus.filtered(lambda food: menu.is_published)" t-as="menu" t-attf-class=" #{opt_event_size}">
-            <a t-attf-href="/lunch/menu/menu.id" class="text-decoration-none text-reset">
-                <article t-attf-class="h-100 card">
-                    <div t-attf-class="h-100 d-flex flex-wrap flex-column">
-                    <!-- Header -->
-                        <header t-attf-class="card-header overflow-hidden bg-secondary p-0 border-0 rounded-0 col-12">
-                        <!-- Image + Link -->
-                            <div class="d-block h-100 w-100">
-                                <t t-call="website.record_cover">
-                                    <!-- <meta itemprop="startDate" t-att-content="event.date_begin.isoformat()"/> -->
-                                    <div t-attf-class="o_wevent_event_date position-absolute shadow-sm o_not_editable">
-                                        <span t-out="menu.date_begin" t-options="{'widget': 'datetime', 'format': 'LLL'}" class="o_wevent_event_month"/>
-                                        <span t-out="menu.date_begin" t-options="{'widget': 'datetime', 'format': 'dd'}" class="o_wevent_event_day oe_hide_on_date_edit"/>
-                                    </div>
-                                    <!-- Not open -->
-                                    <!-- <span t-if="not event.event_registrations_open and (not opt_events_list_cards or not opt_events_list_columns)" class="position-absolute bottom-0 px-3 py-2 w-100 text-bg-light">
-                                        <t t-if="not event.event_registrations_started">
-                                            Registrations not yet open
-                                        </t>
-                                        <t t-elif="event.event_registrations_sold_out">
-                                            Sold Out
-                                        </t>
-                                        <t t-else="">
-                                            Registrations Closed
-                                        </t>
-                                    </span> -->
-                                    <!-- Participating -->
-                                    <small t-if="menu.is_participating" class="o_wevent_participating position-absolute bottom-0 px-3 py-2 w-100 text-bg-success">
-                                        <i class="fa fa-check me-2"/>Registered
-                                    </small>
-                                </t>
-                            </div>
-                        </header>
-                    
-                        <!-- Body -->
-                        <main t-attf-class="card-body position-relative d-flex flex-column justify-content-between gap-2 col-12 py-3">
-                            <div id="event_details">
-                                <div class="d-flex flex-wrap gap-1 small">
-                                    <t t-foreach="menu.food_ids" t-as="food">
-                                        <span t-out="food.name"/>
-                                    </t>
-                                </div>
-                            </div>
-                        </main>
-                        
-                        <!-- Footer -->
-                        <!-- <footer t-if="not food.is_registrations_open and opt_events_list_columns and opt_events_list_cards"
-                            t-att-class="'small align-self-end w-100 card-footer border-top">
-                            <span t-if="not food.is_registrations_open">
-                                <t t-if="not food.is_registrations_started">
-                                    Registrations not yet open
-                                </t>
-                                <t t-else="">
-                                    Registrations Closed
-                                </t>
-                            </span>
-                        </footer> -->
-                    </div>
-                </article>
-            </a>
-        </div>
+
+    <template id="index_topbar" inherit_id="website_event.index_topbar">
+        <xpath expr="//div[hasclass('o_wevent_index_topbar_filters')]/h2" position="replace">
+            <h2 class="h4 my-0 me-auto pe-sm-4">Lunch</h2>
+        </xpath>
+        <xpath expr="//t[@t-foreach='categories']" position="replace"/>
+    </template>
+
+    <template id="events_search_box_input" inherit_id="website_event.events_search_box_input">
+        <xpath expr="//t[@t-set='placeholder']" position="attributes">
+            <attribute name="t-value">"search.."</attribute>
+        </xpath>
+    </template>
+
+    <template id="events_list" inherit_id="website_event.events_list">
+        <p t-elif="searches['tags']" position="replace"/>
     </template>
 </odoo>

@@ -12,7 +12,7 @@ class DailyMenu extends Component {
         this.state = useState({menu:[]});
         this.timeInterval = setInterval(async () => {
             Object.assign(this.state.menu, await this.getTodaysMenu());
-        }, 43200); // Update every 12 hours
+        }, 43200000); // Update every 12 hours
         onWillUnmount(() => {
             clearInterval(this.timeInterval);
         });
