@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="menu_events" model="website.menu">
+            <field name="name">Lunch</field>
+            <field name="url">/lunch</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">3</field>
+        </record>
+    </data>
+</odoo>

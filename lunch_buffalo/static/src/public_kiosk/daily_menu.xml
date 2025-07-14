@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="lunch_buffalo.DailyMenu">
+        <div>
+            <t t-foreach="this.state.menu" t-as="item" t-key="item.id">
+                <MenuItem item="item"/>
+            </t>
+        </div>
+    </t>
+</templates>

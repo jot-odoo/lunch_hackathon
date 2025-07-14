@@ -1,0 +1,7 @@
+<templates>
+    <t t-name="lunch_buffalo.public_kiosk_app" t-inherit="hr_attendance.public_kiosk_app" t-inherit-mode="extension">
+        <xpath expr="//CardLayout//div[hasclass('o_hr_kiosk_mode_main')]" position="before">
+            <DailyMenu />
+        </xpath>
+    </t>
+</templates>

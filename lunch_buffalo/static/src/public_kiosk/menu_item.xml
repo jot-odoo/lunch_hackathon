@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="lunch_buffalo.MenuItem">
+        <div class="o_menu_item">
+            <h3 class="menu-item-title" t-esc="props.item.name"/>
+            <p class="menu-item-description" t-esc="props.item.description"/>
+        </div>
+    </t>
+</templates>
